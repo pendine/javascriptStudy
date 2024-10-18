@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>문자열 검색</title>
+    <style>
+        .found {
+            background-color: #ff0;
+        }
+    </style>
+</head>
+<body>
+    <form id="textsearch">
+        <textarea id="incoming" cols="150" rows="10"></textarea>
+        <p>
+            Search pattern: <input id="pattern" type="text"/>
+        </p>
+    </form>
+    <button id="searchSubmit" type="button">Search for pattern</button>
+    <div id="searchResult"></div>
+
+<script>
+document.getElementById("searchSubmit").onclick = function() {
+    var pattern = document.getElementById("pattern").value;
+    var escapedPattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re = new RegExp(escapedPattern, "g");
+
+    var searchString = document.getElementById("incoming").value;
+    var matchArray;
+    var resultArray = [];
+    var first = 0;
+    var last = 0;
+
+    while ((matchArray = re.exec(searchString)) !== null) {
+        last = matchArray.index;
+        resultArray.push(searchString.substring(first, last));
+        resultArray.push("<span class='found'>" + matchArray[0] + "</span>");
+        first = re.lastIndex;
+    }
+    resultArray.push(searchString.substring(first, searchString.length));
+
+    document.getElementById("searchResult").innerHTML = "<pre>" + resultArray.join('') + "</pre>";
+}
+</script>
+</body>
+</html>

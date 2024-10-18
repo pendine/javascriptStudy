@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>테스트</title>
+    <style>
+        .test {
+            width: 50px;
+            height: 50px;
+            background-color: yellow;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="movingElement" class="test"></div>
+
+    <script>
+        const element = document.getElementById('movingElement');
+        let topPosition = 0;
+        let leftPosition = 0;
+
+        document.addEventListener('keydown', (e) => {
+            const step = 10; // 한 번에 이동할 픽셀 수
+
+            switch(e.key) {
+                case 'ArrowUp':
+                topPosition -= step;
+                    break;
+                case 'ArrowDown':
+                topPosition += step;
+                    break;
+                case 'ArrowLeft':
+                leftPosition -= step;
+                    break;
+                case 'ArrowRight':
+                leftPosition += step;
+                    break;
+            }
+
+            element.style.top = `${topPosition}px`;
+            element.style.left = `${leftPosition}px`;
+        });
+    </script>
+</body>
+</html>
